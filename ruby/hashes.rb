@@ -1,0 +1,58 @@
+# aka, js objects, python dictionaries
+
+my_hash = {
+    "word" => "ahoy",
+    "test score" => 94,
+    "array" => [1,2,3],
+    "empty has" => {}
+}
+# can take anything as keys or values, doesn't have to be string
+
+#accessing keys
+puts my_hash["word"] #ahoy
+    #if key doesn't exist, returns  nil
+
+
+#changing data
+
+shoes = {
+    "summer" => "sandals",
+    "winter" => "boots"
+
+}
+
+shoes["fall"] = "sneakers" #adds a new key fall with a value of sneakers
+
+shoes["summer"] = "chanclas" #changes existing summer key value to chanclas
+
+shoes.delete("summer") #deletes key-value pair 
+
+#methods
+
+books = {
+    "The Elegant Universe" => "Brian Greene",
+    "The Holy Bible" => "random dudes"
+}
+
+#.keys - returns array of keys
+# .values - returns values
+
+puts books.keys
+
+#merging two hashes
+hash1 = { "a" => 100, "b" => 200 }
+hash2 = { "b" => 254, "c" => 300 }
+hash1.merge(hash2) #{ "a" => 100, "b" => 254, "c" => 300 }
+    #key-values in hash2 will overide hash1 if keys are the same
+
+
+
+
+#symbols as hash keys
+    #symbols have better performance and look cleaner in hashes
+
+cars ={
+    :chevrolet => "Camaro",
+    :ford => "Mustang",
+    :dodge => "Charger"
+}
