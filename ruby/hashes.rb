@@ -45,14 +45,43 @@ hash2 = { "b" => 254, "c" => 300 }
 hash1.merge(hash2) #{ "a" => 100, "b" => 254, "c" => 300 }
     #key-values in hash2 will overide hash1 if keys are the same
 
+#has_key? - check if hash contains certain key, returns bool
 
-
+#.fetch - returns value of key passed in if it exists
 
 #symbols as hash keys
     #symbols have better performance and look cleaner in hashes
 
-cars ={
+cars = {
     :chevrolet => "Camaro",
     :ford => "Mustang",
     :dodge => "Charger"
 }
+
+#iterating through kets
+cars.each_key{|key| puts key}
+
+# with for loop, k is array of each key,value pair [k,v]
+for k in cars
+    puts k[0]
+end
+
+cars.each_value{|value| puts value}
+
+for k in cars
+    puts k[1]
+end
+
+
+
+family = {  uncles: ["bob", "joe", "steve"],
+    sisters: ["jane", "jill", "beth"],
+    brothers: ["frank","rob","david"],
+    aunts: ["mary","sally","susan"]
+}
+
+#selecting only sisters and brothers into new array
+arr = family.select{|k,v| k == :sisters || k == :brothers}.flatten
+
+
+
