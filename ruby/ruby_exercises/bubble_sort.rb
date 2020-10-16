@@ -7,13 +7,12 @@ def bubble_sort(arr)
                 lesser_num = arr[i]
                 arr[i-1] = lesser_num
                 arr[i] = greater_num
-                
             end
         end
     end
-
     return arr
-end
+end  
 
 nums = [1,3,4,6,8,9,2]
 print bubble_sort(nums)
+
