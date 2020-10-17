@@ -1,9 +1,7 @@
-# Toolboxes that contain methods that we can use. Just like in python when you have import certain libraries to have access to certain functions
+# Modules are toolboxes that contain methods that we can use. Just like in python when you have import certain libraries to have access to certain functions
+# sort of like classes w/o instances and subclasses
 
 # to pull in modules, you use 'require'
-
-
-# sort of like classes w/o instances and subclasses
 
 # creating our own module
 module Circle
