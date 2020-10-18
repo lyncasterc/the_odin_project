@@ -1,30 +1,29 @@
-#attr_reader and attr_writer are like getter and setter methods that Ruby automatically creates.
+# frozen_string_literal: true
 
-#instead of creating a getter method to get name, attr_reader automatically does it for you
+# attr_reader and attr_writer are like getter and setter methods that Ruby automatically creates.
 
-#attr_accesor can and write attributes
+# instead of creating a getter method to get name, attr_reader automatically does it for you
+
+# attr_accesor can and write attributes
 
 class Person
-    attr_reader :name
-    attr_accessor :job
+  attr_reader :name
+  attr_accessor :job
 
-    def initialize(name,job)
-        @name = name
-        @job = job
-    end
+  def initialize(name, job)
+    @name = name
+    @job = job
+  end
 
-    # def name
-    #     return @name
-    # end
-    # def job(new_job)
-    #     @job = new_job
-    # end
-    
+  # def name
+  #     return @name
+  # end
+  # def job(new_job)
+  #     @job = new_job
+  # end
 end
 
-
-me = Person.new("Stiven","programmer")
+me = Person.new('Stiven', 'programmer')
 puts me.name
-me.job = "Senior software engineer"
+me.job = 'Senior software engineer'
 puts me.job
-

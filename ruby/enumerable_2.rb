@@ -1,19 +1,21 @@
-#include? - checking if particular element exists in array
+# frozen_string_literal: true
 
-nums = [1,4,6,8]
+# include? - checking if particular element exists in array
 
-nums.include?(4) #true
+nums = [1, 4, 6, 8]
 
-#any - same as python, checking if any element in array passes expression
+nums.include?(4) # true
 
-puts nums.any?{|num| num>3} #true
+# any - same as python, checking if any element in array passes expression
 
-#all - checks if all elements pass expression
+puts nums.any? { |num| num > 3 } # true
 
-puts nums.all?{|num| num%2==0} #false
+# all - checks if all elements pass expression
+
+puts nums.all?(&:even?) # false
 
 # none - negation of all, checks if none the elements pass condition
 
-names = ['bob','bo','dilly','billy']
+names = %w[bob bo dilly billy]
 
-puts names.none?{|name| name.length>10} #true - none of the names are greater than 10 char
+puts names.none? { |name| name.length > 10 } # true - none of the names are greater than 10 char

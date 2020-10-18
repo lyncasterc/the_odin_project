@@ -5,18 +5,18 @@
 
 # creating our own module
 module Circle
-    PI = 3.141592653589793
+  PI = 3.141592653589793
 
-    def Circle.area(radius)
-        return PI * radius**2
-    end
+  def Circle.area(radius)
+      return PI * radius**2
+  end
 
-    def Circle.circumference(radius)
-        return 2 * PI * radius
-    end
+  def Circle.circumference(radius)
+      return 2 * PI * radius
+  end
 
-    
-end
+  
+end_
 
 require 'date'
 

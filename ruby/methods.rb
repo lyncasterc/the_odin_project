@@ -1,21 +1,22 @@
-#creating method
+# frozen_string_literal: true
+
+# creating method
 # pretty much python
 
-def my_name(name="stranger")
-    puts "hello #{name}"
+def my_name(name = 'stranger')
+  puts "hello #{name}"
 end
 
-my_name("stiven")
-my_name()
+my_name('stiven')
+my_name
 
 def even_odd(num)
-    if num % 2 == 0
-        return true
-    end
-    return false
+  return true if num.even?
+
+  false
 end
 
 puts even_odd(4)
 
-x=2
-puts x=2
+x = 2
+puts x = 2

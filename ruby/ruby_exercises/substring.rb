@@ -1,19 +1,19 @@
-def substrings(str,arr)
-    str_hash = Hash.new(0)
-    str = str.downcase
+# frozen_string_literal: true
 
-    arr.each do |word|
-        if str.include?(word)
-            str_hash[word]+= str.scan(word).length
-        else
-            next
-        end
+def substrings(str, arr)
+  str_hash = Hash.new(0)
+  str = str.downcase
+
+  arr.each do |word|
+    if str.include?(word)
+      str_hash[word] += str.scan(word).length
+    else
+      next
     end
-    return str_hash
+  end
+  str_hash
 end
 
-
-dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
+dictionary = %w[below down go going horn how howdy it i low own part partner sit]
 
 print substrings("Howdy partner, sit down! How's it going?", dictionary)
-
