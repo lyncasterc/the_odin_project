@@ -4,6 +4,7 @@ class Player
   end
 
   public
+  
   def play(position)
     if @player == "player_1"
 
@@ -23,21 +24,17 @@ class Player
         place_x_o(35,"X")
         $player_1_ml = true
 
-
       elsif position == "middle middle"
         place_x_o(39,"X")
         $player_1_mm = true
-
 
       elsif position == "middle right"
         place_x_o(43,"X")
         $player_1_mr = true
 
-
       elsif position == "bottom left"
         place_x_o(63,"X")
         $player_1_bl = true
-
 
       elsif position == "bottom middle"
         place_x_o(67,"X")
@@ -47,56 +44,47 @@ class Player
       elsif position == "bottom right"
         place_x_o(71,"X")
         $player_1_br = true
-
       end
 
-      elsif @player == "player_2"
-        if position == "top left"
-          place_x_o(5,"O")
-          $player_2_tl = true
-  
-        elsif position == "top middle"
-          place_x_o(9,"O")
-          $player_2_tm = true
-  
-        elsif position == "top right"
-          place_x_o(13,"O")
-          $player_2_tr = true
-  
-        elsif position == "middle left"
-          place_x_o(35,"O")
-          $player_2_ml = true
-  
-  
-        elsif position == "middle middle"
-          place_x_o(39,"O")
-          $player_2_mm = true
-  
-  
-        elsif position == "middle right"
-          place_x_o(43,"O")
-          $player_2_mr = true
-  
-  
-        elsif position == "bottom left"
-          place_x_o(63,"O")
-          $player_2_bl = true
-  
-  
-        elsif position == "bottom middle"
-          place_x_o(67,"O")
-          $player_2_bm = true
-          
-  
-        elsif position == "bottom right"
-          place_x_o(71,"O")
-          $player_2_br = true
-  
+    elsif @player == "player_2"
+      if position == "top left"
+        place_x_o(5,"O")
+        $player_2_tl = true
+
+      elsif position == "top middle"
+        place_x_o(9,"O")
+        $player_2_tm = true
+
+      elsif position == "top right"
+        place_x_o(13,"O")
+        $player_2_tr = true
+
+      elsif position == "middle left"
+        place_x_o(35,"O")
+        $player_2_ml = true
+
+      elsif position == "middle middle"
+        place_x_o(39,"O")
+        $player_2_mm = true
+
+      elsif position == "middle right"
+        place_x_o(43,"O")
+        $player_2_mr = true
+
+      elsif position == "bottom left"
+        place_x_o(63,"O")
+        $player_2_bl = true
+
+      elsif position == "bottom middle"
+        place_x_o(67,"O")
+        $player_2_bm = true
+        
+      elsif position == "bottom right"
+        place_x_o(71,"O")
+        $player_2_br = true
         end
 
     end
-
-
   end
 
   private
@@ -151,6 +139,7 @@ def game
   $player_2_br = false
   
   win = false
+  $round_count = 0
 
   def check_if_win
 
@@ -160,11 +149,11 @@ def game
     elsif ($player_2_tl && $player_2_tm && $player_2_tr) || ($player_2_ml && $player_2_mm && $player_2_mr) || ($player_2_bl && $player_2_bm && $player_2_br) || ($player_2_tl && $player_2_ml && $player_2_bl) || ($player_2_mm && $player_2_tm && $player_2_bm) || ($player_2_tr && $player_2_mr && $player_2_br) || ($player_2_tl && $player_2_mm && $player_2_br) || ($player_2_tr && $player_2_mm && $player_2_bl)
 
       return true
+    
     end
 
     return false
   end
-
 
 
   player_1 = Player.new("player_1")
@@ -172,9 +161,9 @@ def game
 
   print choice_board
 
-
   while !win 
 
+    $round_count +=1
     puts "PLAYER 1"
     print "Enter a number to place X, or 0 to view the numbered board: "
     choice = gets.chomp.to_i
@@ -201,6 +190,9 @@ def game
         puts "PLAYER 1 WINS"
         win = true
         break
+      elsif $round_count > 8
+        puts "DRAW!"
+        break
       end  
     
 
@@ -210,6 +202,10 @@ def game
       if check_if_win
         puts "PLAYER 1 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -219,6 +215,10 @@ def game
       if check_if_win
         puts "PLAYER 1 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -228,6 +228,10 @@ def game
       if check_if_win
         puts "PLAYER 1 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -237,6 +241,10 @@ def game
       if check_if_win
         puts "PLAYER 1 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -246,6 +254,10 @@ def game
       if check_if_win
         puts "PLAYER 1 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -255,6 +267,10 @@ def game
       if check_if_win
         puts "PLAYER 1 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -264,6 +280,10 @@ def game
       if check_if_win
         puts "PLAYER 1 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -273,12 +293,17 @@ def game
       if check_if_win
         puts "PLAYER 1 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
     end
 
+    $round_count +=1
     puts "PLAYER 2"
-    print "Enter number to place O: "
+    print "Enter a number to place O, or 0 to view the numbered board: "
     choice = gets.chomp.to_i
 
     unless (1..9).include?(choice)
@@ -302,6 +327,10 @@ def game
       if check_if_win
         puts "PLAYER 2 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -311,6 +340,10 @@ def game
       if check_if_win
         puts "PLAYER 2 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -320,6 +353,10 @@ def game
       if check_if_win
         puts "PLAYER 2 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -329,6 +366,10 @@ def game
       if check_if_win
         puts "PLAYER 2 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -338,6 +379,10 @@ def game
       if check_if_win
         puts "PLAYER 2 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -347,6 +392,10 @@ def game
       if check_if_win
         puts "PLAYER 2 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -356,6 +405,10 @@ def game
       if check_if_win
         puts "PLAYER 2 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -365,6 +418,10 @@ def game
       if check_if_win
         puts "PLAYER 2 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
 
@@ -374,6 +431,10 @@ def game
       if check_if_win
         puts "PLAYER 2 WINS"
         win = true
+      
+        break
+      elsif $round_count > 8
+        puts "DRAW!"
         break
       end
     end
