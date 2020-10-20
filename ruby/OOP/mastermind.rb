@@ -63,7 +63,7 @@ class CodeBreaker < Player
     if @human_or_computer == "computer"
       code_choices = ["0","1","2","3","4","5","6","7","8","9"]
 
-      if turn_count == 0
+      if $turn_count == 1
         guess = code_choices.sample(4)
         $prev_guesses.push(guess)
       elsif turn_count >= 12
@@ -105,9 +105,9 @@ def start_game
     puts "Thinking of a code..."
     sleep(2)
     code = computer.make_code
-    puts "I have a code!"
+    puts "I have a code!\n\n"
 
-    while $turn_count < 12
+    while $turn_count <= 12
       $turn_count += 1
       puts "TURN: #{$turn_count}"
 
@@ -122,7 +122,10 @@ def start_game
       \n# of correct digits in wrong position: #{guess_rate[1]}"
 
       if guess_rate[0] == 4
-        puts "You guessed the code correctly! "
+        puts "#{code.join}\nYou guessed the code correctly! "
+        break
+      elsif $turn_count == 12 && guess_rate[0] != 4
+        puts "You lose! The code was #{code.join('')}"
         break
       end
     end
@@ -131,6 +134,8 @@ def start_game
   elsif choice == 2
     human_player = CodeMaker.new("human")
     computer = CodeBreaker.new("computer")
+
+
   end
 
 
