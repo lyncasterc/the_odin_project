@@ -12,7 +12,7 @@ class CodeMaker < Player
   end
 
   public
-  
+  # if human, input a code - if computer, generate random code
   def make_code
     code = nil
 
@@ -68,19 +68,15 @@ class CodeBreaker < Player
     super(human_or_computer)
   end
 
-  def make_guess
+  def make_guess()
     guess = nil
 
     if @human_or_computer == "computer"
       code_choices = ["0","1","2","3","4","5","6","7","8","9"]
 
-      if $turn_count == 1
-        guess = code_choices.sample(4)
-        $prev_guesses.push(guess)
-      elsif turn_count >= 12
-
-      end
+      guess = code_choices.sample(4)
       
+      end
       
     elsif @human_or_computer == "human"
       print "Type in a 4 digit guess: "
@@ -146,6 +142,24 @@ def start_game
     human_player = CodeMaker.new("human")
     computer = CodeBreaker.new("computer")
 
+    code = human_player.make_code
+    $turn_count +=  1
+    guess = computer.make_guess
+    guess_rate = human_player.rate_guess(code, guess)
+
+
+    while $turn_count <= 12
+
+      if guess_rate[0] == 4
+        puts guess
+        puts "Computer wins!"
+        break
+      else
+        $turn_count += 1
+        guess = computer.make_guess
+      end
+      
+    end
 
   end
 
