@@ -35,20 +35,31 @@ class CodeMaker < Player
   end
 
   def rate_guess(code, guess)
-    correct_position = 0
-    incorrect_position = 0
-
-
+    correct = 0
+    incorrect = 0
+    
     code.each_with_index do |code_value, code_index|
-      guess.each_with_index do |guess_value, guess_index|
-        if guess_value == code_value && code_index == guess_index
-          correct_position += 1
-        elsif guess_value == code_value && code_index != guess_index
-          incorrect_position += 1
+      dup_indexes = []
+      if guess.include?(code_value)
+        guess.each_with_index do |guess_value, guess_index|
+          if guess_value == code_value
+            dup_indexes.push(guess_index)
+            next
+          else
+            next
+          end
         end
+        if dup_indexes.include?(code_index)
+          correct +=1
+        else
+          incorrect+=1
+        end
+      else
+        next
       end
     end
-    return [correct_position, incorrect_position]
+  
+    return [correct,incorrect]
   end
 end
 
@@ -142,3 +153,12 @@ def start_game
 end
 
 start_game
+
+
+
+
+
+
+
+
+
