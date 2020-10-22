@@ -76,7 +76,6 @@ class CodeBreaker < Player
 
       guess = code_choices.sample(4)
       
-      end
       
     elsif @human_or_computer == "human"
       print "Type in a 4 digit guess: "
@@ -153,6 +152,9 @@ def start_game
       if guess_rate[0] == 4
         puts guess
         puts "Computer wins!"
+        break
+      elsif $turn_count == 12 && guess_rate[0] != 4
+        puts "Computer loses!"
         break
       else
         $turn_count += 1
