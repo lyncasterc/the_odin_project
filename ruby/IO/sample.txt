@@ -1,0 +1,2 @@
+hi
+bye{"name":"Stiven","age":24}
