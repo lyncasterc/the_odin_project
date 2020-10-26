@@ -13,6 +13,7 @@ file_name = "event_attendees.csv"
 
 #lines is an array of all the lines in file
 lines = File.readlines(file_name)
+template_letter = File.read("form_letter.html")
 
 lines.each_with_index do |line, i|
   #displaying name from each line
@@ -65,13 +66,18 @@ contents.each do |row|
       roles: ['legislatorUpperBody', 'legislatorLowerBody']
     )
     legislators = legislators.officials
+    
+    legislator_names = legislators.map do |legislator|
+      legislator.name
+    end
+
   rescue
     "You can find your representatives by visiting www.commoncause.org/take-action/find-elected-officials"
   end
 
-  legislator_names = legislators.map do |legislator|
-    legislator.name
-  end
+
+  personal_letter = template_letter.gsub('FIRST_NAME', name)
+  
   
   puts "#{name}, #{zipcode} #{legislator_names}"
   
