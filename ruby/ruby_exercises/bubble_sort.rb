@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 def bubble_sort(arr)
+  #the outer loop is the max amount of iterations it takes to sort the entire array
   (0..arr.length - 1).each do |_i|
     (1..arr.length - 1).each do |i|
       next unless arr[i - 1] > arr[i]
