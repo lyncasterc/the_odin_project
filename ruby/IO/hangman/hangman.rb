@@ -9,10 +9,8 @@ class HangMan
 
     choice = get_menu_choice
 
-    
-
     case choice
-      when "1"
+      when 1
 
         @word = random_word
 
@@ -27,17 +25,15 @@ class HangMan
           :available_letters => ('a'..'z').to_a,
         }
 
-      when "2"
-        currrent_game_state = load_saved_game
-      else
+      when 2
+        current_game_state = load_saved_game
+        @word = current_game_state[:word]
+
+      when 3
         exit
     end
 
-
-
     # menu
-  
-    
 
   end
 
@@ -95,12 +91,8 @@ class HangMan
 end
 
 
-
 hangman = HangMan.new()
 hangman.main
-
-
-
 
 
 # def pick_random_line
