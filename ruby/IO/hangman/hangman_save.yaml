@@ -1,8 +1,27 @@
 ---
-:word: "deposit\r\n"
+:word: multitude
 :turns_left: 5
-:guessed_letters: []
-:available_letters:
+:wrong_letters:
+- a
+- o
+- s
+:guessed_letters:
+- a
+- o
+- e
+- s
+- i
+:word_dashes:
+- _
+- _
+- _
+- _
+- i
+- _
+- _
+- _
+- e
+:alphabet:
 - a
 - b
 - c

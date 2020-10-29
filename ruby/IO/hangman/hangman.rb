@@ -7,6 +7,13 @@ class HangMan
   def main
 
     full_hangman = ["\t\t------|","\t\t|     O","\t\t|   --|--","\t\t|    / \\","\t\t| ________"]
+    word = nil
+    guessed_letters = nil
+    wrong_letters = nil
+    alphabet = nil
+    turns_left = nil
+    word_dashes = nil
+    guess = nil
 
     puts "\n"
     puts "\t\tHANGMAN\n\n"
@@ -16,7 +23,7 @@ class HangMan
     choice = get_menu_choice
 
     case choice
-      when 1
+      when 1 #start game
 
         @word = random_word
 
@@ -26,26 +33,42 @@ class HangMan
 
           :turns_left => 5,
 
+          :wrong_letters => [],
+
           :guessed_letters => [],
 
-          :available_letters => ('a'..'z').to_a,
+          :word_dashes => [],
+
+          :alphabet => ('a'..'z').to_a,
+
         }
 
-      when 2
+        word = current_game_state[:word]
+        guessed_letters = current_game_state[:guessed_letters]
+        wrong_letters = current_game_state[:wrong_letters]
+        alphabet = current_game_state[:alphabet]
+        turns_left = current_game_state[:turns_left]
+        word_dashes = current_game_state[:word_dashes]
+        guess = nil
+
+        (1..word.length).each{word_dashes.push("_")}
+
+
+      when 2 #load game
         current_game_state = load_saved_game
         @word = current_game_state[:word]
 
-      when 3
+        word = current_game_state[:word]
+        guessed_letters = current_game_state[:guessed_letters]
+        wrong_letters = current_game_state[:wrong_letters]
+        alphabet = current_game_state[:alphabet]
+        turns_left = current_game_state[:turns_left]
+        word_dashes = current_game_state[:word_dashes]
+        guess = nil
+
+      when 3 #quit
         exit
     end
-
-    word = current_game_state[:word]
-    guessed_letters = current_game_state[:guessed_letters]
-    turns_left = current_game_state[:turns_left]
-    word_dashes = []
-    guess = nil
-
-    (1..word.length).each{word_dashes.push("_")}
 
     puts"\n\n"
     print "\t  #{word_dashes.join(" ")}"
@@ -55,24 +78,84 @@ class HangMan
       puts"\n\n"
       print "Guess a letter! (or enter 1 for menu):  "
       guess = gets.chomp.downcase
-      guessed_letters.push(guess)
+      unless !guessed_letters.include?(guess) && (alphabet.include?(guess) || guess == "1")
+        puts "Uh oh! Make sure you're entering a letter which hasn't been guessed yet, or 1 for the menu!"
+        print "Try again: "
+        guess = gets.chomp.downcase
+      end
 
+      if guess != "1"
+        guessed_letters.push(guess)
+      
+      elsif guess == "1"
+        choice = get_menu_choice
+        
+        case choice
+          when 1 # new game
+
+            @word = random_word
+
+            current_game_state = {
+    
+              :word => @word,
+    
+              :turns_left => 5,
+    
+              :wrong_letters => [],
+    
+              :guessed_letters => [],
+    
+              :alphabet => ('a'..'z').to_a,
+            }
+
+            word = current_game_state[:word]
+            guessed_letters = current_game_state[:guessed_letters]
+            wrong_letters = current_game_state[:wrong_letters]
+            alphabet = current_game_state[:alphabet]
+            turns_left = current_game_state[:turns_left]
+            word_dashes = []
+            guess = nil
+            word_dashes = []
+
+            (1..word.length).each{word_dashes.push("_")}
+
+            puts"\n\n"
+            print "\t  #{word_dashes.join(" ")}"
+            next
+
+          when 2 #save game
+            save_game(current_game_state)
+
+          when 3 #resume game
+            next
+
+          when 4 #quit
+            exit
+
+        end
+      end
+
+      #correct guess
       if word.include?(guess)
         word.split('').each_with_index do |char, index|
           if guess == char
             word_dashes[index] = char
           end
         end
+
+      #wrong guess
       else
         turns_left -= 1
+        wrong_letters.push(guess)
       end
 
       display_hangman(turns_left)
       puts"\n\n"
-      puts "\tUsed letters: #{guessed_letters.join('  ')}\n\n"
+      puts "\tWrong letters: #{wrong_letters.join('  ')}\n\n"
       print "\t  #{word_dashes.join(" ")}"
 
       if word_dashes.join('') == word
+        puts "\n"
         puts "You guessed the word!"
         break
       elsif turns_left == 0
@@ -81,18 +164,7 @@ class HangMan
       end
 
 
-
-
-      
-
-
-
-
-
-
     end
-
-    
 
   end
 
@@ -134,12 +206,12 @@ class HangMan
       end
       return choice
     else
-      puts "\t1. New game\n\t2. Save game\n\t3. Go back\n\t4. Quit"
+      puts "\t1. New game\n\t2. Save game\n\t3. Resume game\n\t4. Quit"
       print "\tEnter choice: "
       choice = gets.chomp.to_i
-      unless (1..3).include?(choice)
+      unless (1..4).include?(choice)
         puts "\tInvalid input"
-        puts "\t1. New game\n\t2. Save game\n\t3. Go back\n\t4. Quit"
+        puts "\t1. New game\n\t2. Save game\n\t3. Resume game\n\t4. Quit"
         print "\tEnter choice: "
         choice = gets.chomp.to_i  
       end
@@ -182,6 +254,3 @@ end
 
 hangman = HangMan.new()
 hangman.main
-
-
-
