@@ -4,6 +4,24 @@ class LinkedList
     @head = nil
   end
 
+  def to_s
+    node = @head
+
+    #if length of list is one 
+    return " " if node.nil?
+    return "( #{node} ) -> nil" if node.next_node.nil?    
+
+    while !node.next_node.nil?
+      print "( #{node} ) -> "
+      node = node.next_node
+
+      #reaching the end of the list
+      if node.next_node.nil?
+        return "( #{node} ) -> nil"
+      end
+    end
+  end
+
   def push(value)
     if @head.nil?
       @head = Node.new(value)
@@ -17,6 +35,20 @@ class LinkedList
     old_head = @head
     new_head = Node.new(value, old_head)
     @head = new_head
+  end
+
+  def pop
+    @head
+
+    if @head.next_node.nil?
+      @head.value = nil
+      @head = nil
+    else
+      new_tail = self.at(-2)
+      new_tail.next_node = nil
+    end
+
+  
   end
 
   def length
@@ -71,6 +103,8 @@ class LinkedList
     end
   end
 
+  
+
 end
 
 class Node
@@ -88,3 +122,17 @@ class Node
 end
 
 list = LinkedList.new()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
