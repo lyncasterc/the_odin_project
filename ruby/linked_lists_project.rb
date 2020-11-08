@@ -21,15 +21,33 @@ class LinkedList
 
   def length
     node = @head
-    count = 0
+    count = 1
+
+    return 0 if node.nil?
 
     while !node.next_node.nil?
       node = node.next_node
       count += 1
     end
 
-    return count if count == 0 && node.nil?
-    return count + 1
+    return count
+  end
+
+  def at(index)
+    count = 0
+    node = @head
+    len = self.length
+
+    return node if count == index % len
+    
+    while !node.next_node.nil?
+      node = node.next_node
+      count += 1
+
+      return node if count == index % len
+
+    end
+
   end
 
   def tail
@@ -70,6 +88,3 @@ class Node
 end
 
 list = LinkedList.new()
-
-puts list.length
-# BUG - getting error when list is empty
