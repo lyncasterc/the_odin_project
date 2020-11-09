@@ -40,7 +40,15 @@ class LinkedList
   def insert_at(index, value)
     len = self.length
 
-    if index <=  len - 1 
+    if index == 0 || index == -len
+      self.unshift(value)
+    elsif index == len - 1 || index == -1
+      self.push(value)
+    elsif index < len - 1 && index > -len
+      self.at(index - 1).next_node = Node.new(value, self.at(index))
+    else raise "Out of Range"
+    end
+
   end
 
   def pop
@@ -56,9 +64,23 @@ class LinkedList
     else
       new_tail = self.at(-2)
       new_tail.next_node = nil
-    end
+    end  
+  end
 
-  
+  def remove_at(index)
+    len = self.length
+
+    if index == 0 || index == -len
+      @head = @head.next_node
+
+    elsif index == len - 1 || index == -1
+      self.pop
+
+    elsif index < len - 1 && index > -len
+      self.at(index - 1).next_node=self.at(index + 1)
+
+    else raise "Out of Range"
+    end
   end
 
   def length
@@ -163,16 +185,11 @@ class Node
 end
 
 list = LinkedList.new()
-# list.push("hi")
-# list.push("bye")
-# list.push("sup")
-# list.push("guitar")
-# list.push("pika")
-# puts list
 
-a = [1,2]
-a.insert(4,"hi")
-print a
+
+
+
+
 
 
 
