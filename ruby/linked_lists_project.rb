@@ -37,8 +37,18 @@ class LinkedList
     @head = new_head
   end
 
+  def insert_at(index, value)
+    len = self.length
+
+    if index <=  len - 1 
+  end
+
   def pop
     @head
+
+    if @head.nil?
+      return ""
+    end
 
     if @head.next_node.nil?
       @head.value = nil
@@ -71,14 +81,45 @@ class LinkedList
     len = self.length
 
     return node if count == index % len
-    
+
     while !node.next_node.nil?
       node = node.next_node
       count += 1
 
       return node if count == index % len
-
     end
+  end
+
+  def contains?(value)
+    node = @head
+    
+    return true if self.tail.value == value
+
+    while !node.next_node.nil?
+      if node.value == value
+        return true
+      end
+      node = node.next_node
+    end
+
+    return false
+  end
+
+  def find(value)
+    node = @head
+    count = 0
+
+    return self.length - 1 if self.tail.value == value
+
+    while !node.next_node.nil?
+      if node.value == value
+        return count
+      end
+      node = node.next_node
+      count += 1
+    end
+
+    return 
 
   end
 
@@ -122,6 +163,17 @@ class Node
 end
 
 list = LinkedList.new()
+# list.push("hi")
+# list.push("bye")
+# list.push("sup")
+# list.push("guitar")
+# list.push("pika")
+# puts list
+
+a = [1,2]
+a.insert(4,"hi")
+print a
+
 
 
 
