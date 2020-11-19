@@ -1,28 +1,50 @@
 class Node
   attr_accessor :data, :right, :left
 
-  def initialize(data)
+  def initialize(data=nil)
     @data = data
-    @right = nil
     @left = nil
+    @right = nil
   end
 
+  def to_s
+    return @data.to_s
+  end
 end
 
 
 class Tree
+  attr_reader :root
+
   def initialize(arr)
     @arr = arr
-    @root = self.build_tree(@arr)
+    @root = build_tree(arr)
+  end
+
+  public
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+  end
+
+  def insert(val)
+
+    new_arr = @arr.push(val).sort.uniq
+    @root = build_tree(new_arr)
   end
 
   private
-
   def build_tree(arr)
+
+    arr.sort!.uniq!
 
     return nil if arr.empty?
 
-    arr.sort!.uniq!
+    if arr.length == 1 
+      root = Node.new(arr[0])
+      return root
+    end
 
     mid_index = arr.length/2
     
@@ -36,5 +58,9 @@ class Tree
   end
 end
 
-tree = Tree.new([1,2,3,4,5])
+tree = Tree.new([1,2,3,4,5,6,7])
+tree.pretty_print
+print tree.insert(19)
+tree.pretty_print
+print tree.root
 
