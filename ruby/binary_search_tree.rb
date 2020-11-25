@@ -28,10 +28,52 @@ class Tree
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
-  def insert(val)
+  def insert(root, val)
+    return Node.new(val) if root.nil?
 
-    new_arr = @arr.push(val).sort.uniq
-    @root = build_tree(new_arr)
+    if root.data == val
+      return root
+    elsif val < root.data
+      root.left = insert(root.left, val)
+    elsif val > root.data
+      root.right = insert(root.right, val)
+    end
+
+    return root
+  end
+
+  def delete(root, val)
+    return root if root.nil?
+
+    if val < root.data
+      root.left = delete(root.left, val)
+    elsif val > root.data
+      root.right = delete(root.right, val)
+    else
+      if root.left.nil?
+        temp = root.right
+        root = nil
+        return temp
+      elsif root.right.nil?
+        temp = root.left
+        root = nil
+        return temp
+      end
+    
+    end
+  end 
+
+  def min_val_node
+    node = root
+    
+    return node if node.left.nil?
+
+    while !node.left.nil?
+      node = node.left
+    end
+
+    return node
+
   end
 
   private
@@ -58,9 +100,9 @@ class Tree
   end
 end
 
-tree = Tree.new([1,2,3,4,5,6,7])
+tree = Tree.new([9,11,3,89,34])
+tree_root = tree.root
 tree.pretty_print
-print tree.insert(19)
-tree.pretty_print
-print tree.root
+puts tree.min_val_node
 
+# puts tree.root
