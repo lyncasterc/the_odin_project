@@ -59,21 +59,55 @@ class Tree
         root = nil
         return temp
       end
+
+      temp = min_val_node(root.right)
+      root.data = temp.data
+
+      root.right = delete(root.right, temp.data)
+
+      return root 
     
     end
   end 
 
-  def min_val_node
-    node = root
-    
-    return node if node.left.nil?
+  def min_val_node(node)
+    current = node
+    return current if current.left.nil?
 
-    while !node.left.nil?
-      node = node.left
+    while !current.left.nil?
+      current = current.left
     end
 
-    return node
+    return current
+  end
 
+  def find(root, val)
+    return nil if root.nil?
+    return root if root.data == val
+
+    if val < root.data
+      find(root.left, val)
+    elsif val > root.data
+      find(root.right, val)
+    end
+
+    def level_order
+      root = @root
+      return queue if root.nil?
+      queue = []
+      result = []
+
+      while !root.nil?
+        queue.push(root)
+        
+        result.each do |node|
+          
+        end
+
+      end
+
+
+    end
   end
 
   private
@@ -100,9 +134,9 @@ class Tree
   end
 end
 
-tree = Tree.new([9,11,3,89,34])
-tree_root = tree.root
+tree = Tree.new([1,2,3,4,5,6,7])
 tree.pretty_print
-puts tree.min_val_node
+puts tree.find(tree.root,9)
 
-# puts tree.root
+
+
