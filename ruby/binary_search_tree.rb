@@ -91,24 +91,39 @@ class Tree
       find(root.right, val)
     end
 
-    def level_order
-      root = @root
-      return queue if root.nil?
-      queue = []
-      result = []
-
-      while !root.nil?
-        queue.push(root)
-        
-        result.each do |node|
-          
-        end
-
-      end
-
-
-    end
+    
   end
+
+  def level_order
+    root = @root
+    queue = []
+    result = []
+
+    return queue if root.nil?
+
+    queue.push(root)
+    
+    while !queue.empty?
+      result.push(root.data)
+      queue.push(root.left) if !root.left.nil?
+      queue.push(root.right) if !root.right.nil?
+      queue.shift
+      root = queue[0]
+    end
+
+    return result
+  end
+
+  def inorder(root)
+    result = []
+    return nil if root.nil?
+    
+    
+
+
+
+  end
+
 
   private
   def build_tree(arr)
@@ -134,9 +149,10 @@ class Tree
   end
 end
 
-tree = Tree.new([1,2,3,4,5,6,7])
+tree = Tree.new([2,3,7,10,13,11,30])
 tree.pretty_print
-puts tree.find(tree.root,9)
+print tree.inorder(tree.root)
+
 
 
 
