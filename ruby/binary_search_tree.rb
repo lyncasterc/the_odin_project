@@ -145,6 +145,40 @@ class Tree
     return arr
   end
 
+  def height
+    node = @root
+    left_count = 0
+    right_count = 0
+
+    return nil if root.nil?
+
+    while !node.nil?
+      node = node.left
+      left_count += 1
+    end
+    node = @root
+    while !node.nil?
+      node = node.right
+      right_count += 1
+    end
+
+    if left_count > right_count
+      return left_count - 1
+    else
+      return right_count - 1
+    end    
+  end
+
+  def depth(val)
+    return nil if self.find(@root,val).nil?
+    count = 0
+    current = @root
+
+    
+
+  end
+
+
 
 
   private
@@ -171,14 +205,9 @@ class Tree
   end
 end
 
-tree = Tree.new([2,3,7,10,13,11,30])
+tree = Tree.new([2,3,7,10,5,4,9,10,11,12,13,14,15])
 tree.pretty_print
-print tree.inorder(tree.root)
-puts " "
-print tree.postorder(tree.root)
-puts " "
-print tree.preorder(tree.root)
-
+puts tree.height
 
 
 
