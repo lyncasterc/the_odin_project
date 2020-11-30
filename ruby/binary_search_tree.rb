@@ -114,15 +114,37 @@ class Tree
     return result
   end
 
-  def inorder(root)
-    result = []
+  def inorder(root,arr=[])
     return nil if root.nil?
-    
-    
 
+    inorder(root.left, arr)
+    arr.push(root.data) 
+    inorder(root.right, arr)
 
+    return arr
+  end
+
+  def postorder(root, arr=[])
+    return nil if root.nil?
+
+    postorder(root.left, arr)
+    postorder(root.right, arr)
+    arr.push(root.data)
+
+    return arr
 
   end
+
+  def preorder(root, arr=[])
+    return nil if root.nil?
+
+    arr.push(root.data)
+    preorder(root.left, arr)
+    preorder(root.right, arr)
+
+    return arr
+  end
+
 
 
   private
@@ -152,6 +174,10 @@ end
 tree = Tree.new([2,3,7,10,13,11,30])
 tree.pretty_print
 print tree.inorder(tree.root)
+puts " "
+print tree.postorder(tree.root)
+puts " "
+print tree.preorder(tree.root)
 
 
 
