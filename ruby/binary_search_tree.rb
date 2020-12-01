@@ -91,7 +91,6 @@ class Tree
       find(root.right, val)
     end
 
-    
   end
 
   def level_order
@@ -145,8 +144,9 @@ class Tree
     return arr
   end
 
-  def height
-    node = @root
+  def height(node = nil)
+    node = @root if node.nil?
+    temp_node = node
     left_count = 0
     right_count = 0
 
@@ -156,7 +156,7 @@ class Tree
       node = node.left
       left_count += 1
     end
-    node = @root
+    node = temp_node
     while !node.nil?
       node = node.right
       right_count += 1
@@ -170,17 +170,11 @@ class Tree
   end
 
   def depth(val)
-    return nil if self.find(@root,val).nil?
-    count = 0
-    current = @root
-
-    
-
+    node_val = val
+    node = self.find(@root, node_val)
+    return nil if node.nil?
+    return self.height(node)
   end
-
-
-
-
   private
   def build_tree(arr)
 
@@ -208,6 +202,6 @@ end
 tree = Tree.new([2,3,7,10,5,4,9,10,11,12,13,14,15])
 tree.pretty_print
 puts tree.height
-
+puts tree.depth(1)
 
 
