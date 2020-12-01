@@ -175,6 +175,22 @@ class Tree
     return nil if node.nil?
     return self.height(node)
   end
+
+  def balanced?
+    node = @root
+
+    left_height = self.height(node.left)
+    right_height = self.height(node.right)
+
+    lh_diff = left_height - right_height
+
+    if lh_diff >= -1 && lh_diff <= 1
+      return true
+    else 
+      return false
+    end
+  end
+
   private
   def build_tree(arr)
 
@@ -197,11 +213,14 @@ class Tree
 
     return root
   end
+
+
+
 end
 
-tree = Tree.new([2,3,7,10,5,4,9,10,11,12,13,14,15])
+tree = Tree.new([2,3,7,10])
 tree.pretty_print
 puts tree.height
-puts tree.depth(1)
+puts tree.balanced?
 
 
