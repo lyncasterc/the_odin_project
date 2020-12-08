@@ -213,14 +213,9 @@ class Tree
 
     return root
   end
-
-
-
 end
 
 tree = Tree.new([2,3,7,10])
 tree.pretty_print
 puts tree.height
 puts tree.balanced?
-
-
