@@ -1,4 +1,23 @@
 class Node
+  attr_accessor :data, :children
+
+  def initialize(data=nil, children=nil)
+    @data = data
+    @children = children
+  end
+
+  def to_s
+    return @data.to_s
+  end
+end
+
+class Tree
+  
+  attr_accessor :root
+
+  def initialize(root)
+    @root = root
+  end
 
 end
 
@@ -32,11 +51,11 @@ class Knight
   end
 
   public
-  def valid_move?(move)
+  def valid_move?(new_pos)
     x1 = @current_pos[0]
     y1 = @current_pos[1]
-    x2 = move[0]
-    y2 = move[1]
+    x2 = new_pos[0]
+    y2 = new_pos[1]
 
     return false if x2 > 7 || x2 < 0 || y2 > 7 || y2 < 0
 
@@ -60,13 +79,38 @@ class Knight
 
     return moves
   end
+
+  def possible_moves_tree(board, pos)
+    # visited_spaces = []
+    root = Node.new(pos)
+    root.children = []
+    moves = self.possible_moves(board)
+
+    moves.each do |move|
+      root.children.push(Node.new(move))
+    end
+
+    root.children.each do |child|
+      self.possible_moves_tree(board, child.data)
+    end
+    tree = Tree.new(root)
+
+    return tree
+
+  end
 end
 
 chess = Board.new
 print chess.board
-b_knight = Knight.new([2,1])
+
+b_knight = Knight.new([1,3])
+
 puts ""
 puts ""
-print b_knight.possible_moves(chess.board)
+
+
+print b_knight.possible_moves_tree(chess.board, b_knight.current_pos)
+
+
 
 
