@@ -19,6 +19,14 @@ class Tree
     @root = root
   end
 
+  def to_s
+    return root.to_s
+  end
+
+  def get_children
+    return root.children
+  end
+
 end
 
 class Board
@@ -51,9 +59,9 @@ class Knight
   end
 
   public
-  def valid_move?(new_pos)
-    x1 = @current_pos[0]
-    y1 = @current_pos[1]
+  def valid_move?(new_pos, pos = @current_pos)
+    x1 = pos[0]
+    y1 = pos[1]
     x2 = new_pos[0]
     y2 = new_pos[1]
 
@@ -68,11 +76,11 @@ class Knight
     end
   end
 
-  def possible_moves(board)
+  def possible_moves(board, pos = @current_pos)
     moves = []
 
     board.each do |coor|
-      if self.valid_move?(coor)
+      if self.valid_move?(coor, pos)
         moves.push(coor)
       end
     end
@@ -80,23 +88,31 @@ class Knight
     return moves
   end
 
-  def possible_moves_tree(board, pos)
-    # visited_spaces = []
+  def possible_moves_tree(board, pos = @current_pos, visited_nodes = [])
+
+    return if visited_nodes.length >= 64
+
     root = Node.new(pos)
+    visited_nodes.push(root.data)
+
     root.children = []
-    moves = self.possible_moves(board)
+
+    moves = self.possible_moves(board, pos)
 
     moves.each do |move|
-      root.children.push(Node.new(move))
+      if !visited_nodes.include?(move)
+        root.children.push(Node.new(move))
+        visited_nodes.push(move)
+      end
     end
 
     root.children.each do |child|
-      self.possible_moves_tree(board, child.data)
+      possible_moves_tree(board, pos = child.data, visited_nodes)
     end
+
     tree = Tree.new(root)
-
     return tree
-
+  
   end
 end
 
@@ -108,8 +124,12 @@ b_knight = Knight.new([1,3])
 puts ""
 puts ""
 
+move_tree = b_knight.possible_moves_tree(chess.board)
 
-print b_knight.possible_moves_tree(chess.board, b_knight.current_pos)
+print move_tree.get_children
+
+
+
 
 
 
