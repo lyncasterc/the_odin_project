@@ -126,9 +126,7 @@ class Knight
     end
 
     return tree
-    
   end
-
 end
 
 chess = Board.new
@@ -140,7 +138,7 @@ puts ""
 puts ""
 
 root = b_knight.possible_moves_tree(chess.board)
-print root
+print root 
 
 
 
