@@ -91,9 +91,13 @@ class Knight
   def possible_moves_tree(board, pos = @current_pos)
     queue = []
     visited_squares = []
+
     root = Node.new(data = pos)
-    visited_squares.push(pos)
     tree = Tree.new(root)
+
+    visited_squares.push(pos)
+
+    
 
     root.children = []
     moves = self.possible_moves(board, pos)
@@ -108,6 +112,7 @@ class Knight
     end
 
     while visited_squares.uniq.length < 64
+      
       first = queue[0]
       first.children = []
 
