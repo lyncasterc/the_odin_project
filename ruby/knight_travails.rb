@@ -9,6 +9,7 @@ class Node
   def to_s
     return @data.to_s
   end
+    
 end
 
 class Tree
@@ -23,9 +24,23 @@ class Tree
     return root.to_s
   end
 
-  def get_children
-    return root.children
+  def get_root_children
+    result = []
+
+    self.root.children.each do |child|
+      result.push(child.data)
+    end
+
+    return result
   end
+
+  def display
+    queue = []
+    visited_squares = []
+
+    
+  end
+  
 
 end
 
@@ -97,8 +112,6 @@ class Knight
 
     visited_squares.push(pos)
 
-    
-
     root.children = []
     moves = self.possible_moves(board, pos)
 
@@ -137,13 +150,19 @@ end
 chess = Board.new
 print chess.board
 
-b_knight = Knight.new([1,3])
+b_knight = Knight.new([0,0])
 
 puts ""
 puts ""
 
-root = b_knight.possible_moves_tree(chess.board)
-print root 
+tree = b_knight.possible_moves_tree(chess.board)
+print tree.get_root_children
+
+puts ""
+puts ""
+
+# print root.search([1,4])
+
 
 
 
