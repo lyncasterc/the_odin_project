@@ -1,51 +1,5 @@
-class Node
-  attr_accessor :data, :children
-
-  def initialize(data=nil, children=nil)
-    @data = data
-    @children = children
-  end
-
-  def to_s
-    return @data.to_s
-  end
-    
-end
-
-class Tree
-  
-  attr_accessor :root
-
-  def initialize(root)
-    @root = root
-  end
-
-  def to_s
-    return root.to_s
-  end
-
-  def get_root_children
-    result = []
-
-    self.root.children.each do |child|
-      result.push(child.data)
-    end
-
-    return result
-  end
-
-  def display
-    queue = []
-    visited_squares = []
-
-    
-  end
-  
-
-end
-
 class Board
-  attr_accessor :board
+  attr_reader :board
 
   def initialize
     @board = self.create_board
@@ -61,19 +15,19 @@ class Board
         board.push([x,y])
       end
     end
-
     return board
   end
 end
 
 class Knight
-  attr_reader :current_pos
-
-  def initialize(position)
+  attr_accessor :current_pos, :children, :parent
+  
+  def initialize(position, parent = nil)
     @current_pos = position
+    @parent = parent
+    @children = []
   end
 
-  public
   def valid_move?(new_pos, pos = @current_pos)
     x1 = pos[0]
     y1 = pos[1]
@@ -91,7 +45,7 @@ class Knight
     end
   end
 
-  def possible_moves(board, pos = @current_pos)
+  def possible_moves(board, pos)
     moves = []
 
     board.each do |coor|
@@ -99,69 +53,60 @@ class Knight
         moves.push(coor)
       end
     end
-
     return moves
   end
-
-  def possible_moves_tree(board, pos = @current_pos)
-    queue = []
-    visited_squares = []
-
-    root = Node.new(data = pos)
-    tree = Tree.new(root)
-
-    visited_squares.push(pos)
-
-    root.children = []
-    moves = self.possible_moves(board, pos)
-
-    moves.each do |move|
-      root.children.push(Node.new(data = move))
-      visited_squares.push(move) 
+  
+  def trace_history(knight)
+    history = [knight.current_pos]
+    
+    until knight.parent == nil
+      knight = knight.parent
+      history.unshift(knight.current_pos)
     end
+    return history
+  end
 
-    root.children.each do |child|
-      queue.push(child)
-    end
+  
+  def knight_moves(board, end_pos, start_pos = @current_pos)
+    queue = [Knight.new(start_pos)]
+    
+    current = queue.shift
 
-    while visited_squares.uniq.length < 64
-      
-      first = queue[0]
-      first.children = []
-
-      moves = self.possible_moves(board, first.data)
-
-      moves.each do |move|
-        first.children.push(Node.new(data = move))
-        visited_squares.push(move) if !visited_squares.include?(move)
+    until current.current_pos == end_pos
+      current.possible_moves(board, current.current_pos).each do |move|
+        current.children.push(Knight.new(move, current))
       end
 
-      first.children.each do |child|
+      current.children.each do |child|
         queue.push(child)
       end
 
-      queue.shift
+      current = queue.shift
     end
-
-    return tree
+    
+    trace_history(current)
   end
 end
 
-chess = Board.new
-print chess.board
+chess_board = Board.new.board
+
+print chess_board
 
 b_knight = Knight.new([0,0])
 
 puts ""
-puts ""
 
-tree = b_knight.possible_moves_tree(chess.board)
-print tree.get_root_children
+print b_knight.knight_moves(chess_board, [1,2])
 
-puts ""
-puts ""
 
-# print root.search([1,4])
+
+
+
+
+
+
+
+
 
 
 
