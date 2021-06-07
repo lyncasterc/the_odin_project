@@ -124,7 +124,7 @@ def nth_fibonacci(n)
 
   return nth_fibonacci(n-1) + nth_fibonacci(n-2)
   
-  end 
+end 
 
 
 puts nth_fibonacci(2)

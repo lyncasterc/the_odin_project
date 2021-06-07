@@ -17,6 +17,7 @@ puts numbers # 1,2,3,4,5,6
 # unshit adds, shift removes
 # pop and shift take int args - number of elements to remove
 names = %w[stiven bob]
+# %w is a shortcut for array of strings seperated by spaces
 names.unshift('emilia')
 puts names
 
