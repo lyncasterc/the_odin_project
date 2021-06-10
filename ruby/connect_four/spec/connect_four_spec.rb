@@ -30,6 +30,47 @@ describe ConnectFour do
     end
   end
 
+  describe '#four_in_a_row?' do
+    subject(:game) { described_class.new }
+
+    context 'when passed an array with 4 consecutive elements equal to 1 or 2' do
+      it 'returns true ' do
+        game_col = ["1", "1", "1", "1", "O", "O"]
+        expect(game.four_in_a_row?(game_col)).to be true
+      end
+    end
+
+    it 'works when array length is 4' do
+
+      game_col = ["1", "1", "1", "1"]
+      expect(game.four_in_a_row?(game_col)).to be true
+    end
+
+    it 'works when array length is 5' do
+
+      game_col = ["O","1", "1", "1", "1"]
+      expect(game.four_in_a_row?(game_col)).to be true
+    end
+
+    it 'works when array length is 6' do
+
+      game_col = ["O", "1", "1", "1", "1", "O"]
+      expect(game.four_in_a_row?(game_col)).to be true
+    end
+
+    it 'returns false when array length is less than 4' do
+
+      game_col = ["O", "1", "1"]
+      expect(game.four_in_a_row?(game_col)).to be false
+    end
+
+    it 'returns false when there are not four in a row' do
+      game_col = ["O", "O", "O","O","O"]
+      expect(game.four_in_a_row?(game_col)).to be false
+    end
+  end
+
+
   describe '#vertical_win?' do
     subject(:game_vertical) { described_class.new }
 
@@ -65,7 +106,6 @@ describe ConnectFour do
 
       end
     end
-
   end
 
   # describe '#game_over?' do

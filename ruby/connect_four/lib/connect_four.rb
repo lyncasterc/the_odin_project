@@ -18,25 +18,38 @@ class ConnectFour
     end
   end
 
-  
+  def four_in_a_row?(arr)
+
+    return false if arr.length < 4
+
+    i = 0
+
+    until i + 3 > arr.length - 1 do
+      if arr[i..(i+3)].all? {|x| x == "1" || x == "2"}
+        return true
+      else
+        i += 1
+      end
+    end
+
+    false
+  end
 
   def vertical_win?
+    
     @game_board.each do |col|
-      first_slice = col[0..3].uniq
-      second_slice = col[1..4].uniq
-      third_slice = col[2..5].uniq
-
-      if first_slice.all? {|x| x == "1" || x == "2"} || second_slice.all? {|x| x == "1" || x == "2"} || third_slice.all? {|x| x == "1" || x == "2"}
-        return true
-      end
+      return true if four_in_a_row?(col)
     end
 
     return false
   end
 
+
+
   def horizontal_win?
 
   end
+
   def diagonal_win?
 
   end
@@ -52,6 +65,7 @@ class ConnectFour
       puts ""
     end
   end
+  
 end
 
 game = ConnectFour.new
