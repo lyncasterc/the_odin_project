@@ -11,7 +11,7 @@ describe ConnectFour do
         player_1 = 1
         col = 2
 
-        expect{ game_move.make_move(player_1, col) }.to change { game_board[col - 1][-1] }.from("O").to("1")
+        expect{ game_move.make_move(player_1, col) }.to change { game_board[col - 1][0] }.from("O").to("1")
       end
     end
 
@@ -25,12 +25,68 @@ describe ConnectFour do
 
         game_move.make_move(player_1,col)
 
-        expect { game_move.make_move(player_2,col) }.to change { game_board[col - 1][-2..-1] }.from(["O","1"]).to(["2","1"])
+        expect { game_move.make_move(player_2,col) }.to change { game_board[col - 1][0..1] }.from(["1","O"]).to(["1","2"])
+      end
+    end
+  end
+
+  describe '#vertical_win?' do
+    subject(:game_vertical) { described_class.new }
+
+    context 'when player has 4 in a row vertically' do
+      it 'returns true' do
+
+        game_board = game_vertical.instance_variable_get(:@game_board)
+        game_board[0] = ["1", "1", "1", "1", "O", "O"]
+
+        expect(game_vertical.vertical_win?).to be true
       end
     end
 
-    
-    
+
+    context 'when player has 4 in a row vertically anywhere in the column' do
+      it 'returns true' do
+
+        game_board = game_vertical.instance_variable_get(:@game_board)
+        game_board[0] = ["O", "2", "2", "2", "2", "O"]
+
+        expect(game_vertical.vertical_win?).to be true
+
+      end
+    end
+
+    context 'when player has 4 in a row vertically anywhere in the board' do
+      it 'returns true' do
+
+        game_board = game_vertical.instance_variable_get(:@game_board)
+        game_board[6] = ["O", "O", "2", "2", "2", "2"]
+
+        expect(game_vertical.vertical_win?).to be true
+
+      end
+    end
+
   end
+
+  # describe '#game_over?' do
+  #   subject(:game_over) { described_class.new }
+
+  #   before do
+  #     allow(game_over).to receive(:vertical_win?).and_return(true)
+  #   end
+
+  #   context 'when a player has 4 in a row' do
+
+  #     xit 'returns true' do
+  #       result = game_over.game_over?
+  #       expect(result).to be true
+  #     end
+
+  #   end
+    
+
+  # end
+
+
 
 end
