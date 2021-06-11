@@ -25,18 +25,24 @@ class ConnectFour
     i = 0
 
     until i + 3 > arr.length - 1 do
-      if arr[i..(i+3)].all? {|x| x == "1" || x == "2"}
+
+      if arr[i..(i+3)].all? {|x| x == "1"}
         return true
+
+      elsif arr[i..(i+3)].all? {|x| x == "2"}
+        return true
+
       else
         i += 1
       end
+
     end
 
     false
   end
 
   def vertical_win?
-    
+
     @game_board.each do |col|
       return true if four_in_a_row?(col)
     end
@@ -45,9 +51,24 @@ class ConnectFour
   end
 
 
-
   def horizontal_win?
 
+    i = 0
+    game_board_row = []
+
+    until i > 5 do
+
+      @game_board.each do |col|
+        game_board_row.push(col[i])
+      end
+
+      return true if four_in_a_row?(game_board_row)
+
+      game_board_row.clear
+      i += 1
+
+    end
+    false
   end
 
   def diagonal_win?
@@ -69,7 +90,16 @@ class ConnectFour
 end
 
 game = ConnectFour.new
-print game.game_board.inspect
+# game.make_move(2,1)
+# game.make_move(2,2)
+# game.make_move(2,3)
+# game.make_move(1,4)
+# game.make_move(1,5)
+# game.make_move(1,6)
+# game.make_move(1,7)
+game.display_board
+# print game.horizontal_win?
+# game.make_move(1,1)
 
 
 

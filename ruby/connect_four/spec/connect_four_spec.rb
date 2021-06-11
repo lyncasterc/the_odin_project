@@ -58,6 +58,12 @@ describe ConnectFour do
       expect(game.four_in_a_row?(game_col)).to be true
     end
 
+    it 'works when array length is 7' do
+
+      game_col = ["O", "1", "1", "1", "1", "O", "O"]
+      expect(game.four_in_a_row?(game_col)).to be true
+    end
+
     it 'returns false when array length is less than 4' do
 
       game_col = ["O", "1", "1"]
@@ -68,13 +74,23 @@ describe ConnectFour do
       game_col = ["O", "O", "O","O","O"]
       expect(game.four_in_a_row?(game_col)).to be false
     end
+
+    context 'when array elements are only 1 and 2 but does not have four in a row' do
+      it 'returns false' do
+
+      game_col = game_col = ["1", "1", "1", "2", "2", "2"]
+      expect(game.four_in_a_row?(game_col)). to be false
+      end
+
+    end
+  
   end
 
 
   describe '#vertical_win?' do
     subject(:game_vertical) { described_class.new }
 
-    context 'when player has 4 in a row vertically' do
+    context 'when player has four in a row vertically' do
       it 'returns true' do
 
         game_board = game_vertical.instance_variable_get(:@game_board)
@@ -85,7 +101,7 @@ describe ConnectFour do
     end
 
 
-    context 'when player has 4 in a row vertically anywhere in the column' do
+    context 'when player has four in a row vertically anywhere in the column' do
       it 'returns true' do
 
         game_board = game_vertical.instance_variable_get(:@game_board)
@@ -96,7 +112,7 @@ describe ConnectFour do
       end
     end
 
-    context 'when player has 4 in a row vertically anywhere in the board' do
+    context 'when player has four in a row vertically anywhere in the board' do
       it 'returns true' do
 
         game_board = game_vertical.instance_variable_get(:@game_board)
@@ -106,6 +122,119 @@ describe ConnectFour do
 
       end
     end
+
+    context 'when there is no vertical four in a row' do
+      it 'returns false' do
+
+        game_board = game_vertical.instance_variable_get(:@game_board)
+        game_board[0] = ["O", "O", "1", "2", "2", "2"]
+
+        expect(game_vertical.vertical_win?).to be false
+
+      end
+    end
+  end
+
+  describe '#horizontal_win?' do
+    subject(:game_horizontal) { described_class.new }
+
+    context 'when player has four in a row horizontally' do
+      it 'returns true' do
+
+        game_board = game_horizontal.instance_variable_get(:@game_board)
+        game_board[0][0] = "1"
+        game_board[1][0] = "1"
+        game_board[2][0] = "1"
+        game_board[3][0] = "1"
+        game_board[4][0] = "O"
+        game_board[5][0] = "O"
+        game_board[6][0] = "O"
+
+        expect(game_horizontal.horizontal_win?).to be true
+
+      end
+    end
+
+    it 'works anywhere within the row' do
+
+      game_board = game_horizontal.instance_variable_get(:@game_board)
+      game_board[0][0] = "1"
+      game_board[1][0] = "1"
+      game_board[2][0] = "2"
+      game_board[3][0] = "2"
+      game_board[4][0] = "2"
+      game_board[5][0] = "2"
+      game_board[6][0] = "O"
+
+      expect(game_horizontal.horizontal_win?).to be true
+
+    end
+
+    it 'works anywhere on the board' do
+      
+      game_board = game_horizontal.instance_variable_get(:@game_board)
+      game_board[0][3] = "1"
+      game_board[1][3] = "1"
+      game_board[2][3] = "2"
+      game_board[3][3] = "2"
+      game_board[4][3] = "2"
+      game_board[5][3] = "2"
+      game_board[6][3] = "O"
+
+      expect(game_horizontal.horizontal_win?).to be true
+    end
+
+    context 'when row is full and there is a horizontal four in a row' do
+      it 'returns true' do
+
+      game_board = game_horizontal.instance_variable_get(:@game_board)
+      game_board[0][5] = "1"
+      game_board[1][5] = "1"
+      game_board[2][5] = "1"
+      game_board[3][5] = "2"
+      game_board[4][5] = "2"
+      game_board[5][5] = "2"
+      game_board[6][5] = "2"
+
+      expect(game_horizontal.horizontal_win?).to be true
+
+      end
+    end
+
+    context 'when there is no horizontal four in a row ' do
+      it 'returns false' do
+
+        game_board = game_horizontal.instance_variable_get(:@game_board)
+        game_board[0][0] = "1"
+        game_board[1][0] = "1"
+        game_board[2][0] = "1"
+        game_board[3][0] = "O"
+        game_board[4][0] = "O"
+        game_board[5][0] = "O"
+        game_board[6][0] = "O"
+
+        expect(game_horizontal.horizontal_win?).to be false
+      end 
+    end
+
+    context 'when row is full and there is no horizontal four in a row ' do
+      it 'returns false' do
+
+        game_board = game_horizontal.instance_variable_get(:@game_board)
+        game_board[0][0] = "1"
+        game_board[1][0] = "1"
+        game_board[2][0] = "1"
+        game_board[3][0] = "2"
+        game_board[4][0] = "2"
+        game_board[5][0] = "2"
+        game_board[6][0] = "1"
+
+        expect(game_horizontal.horizontal_win?).to be false
+      end 
+
+    end
+
+
   end
 
   # describe '#game_over?' do
