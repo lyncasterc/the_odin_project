@@ -141,7 +141,7 @@ class LinkedList
       count += 1
     end
 
-    return 
+    return count
 
   end
 

@@ -231,30 +231,127 @@ describe ConnectFour do
 
         expect(game_horizontal.horizontal_win?).to be false
       end 
-
     end
-
-
   end
 
-  # describe '#game_over?' do
-  #   subject(:game_over) { described_class.new }
+  describe '#diagonal_win?' do
+    subject(:game_diagonal) { described_class.new }
 
-  #   before do
-  #     allow(game_over).to receive(:vertical_win?).and_return(true)
-  #   end
+    context 'when there is an ascending diagonal four in a row' do
+      it 'returns true' do
+        game_board = game_diagonal.instance_variable_get(:@game_board)
 
-  #   context 'when a player has 4 in a row' do
+        game_board[0][3] = "1"
+        game_board[1][2] = "1"
+        game_board[2][1] = "1"
+        game_board[3][0] = "1"
 
-  #     xit 'returns true' do
-  #       result = game_over.game_over?
-  #       expect(result).to be true
-  #     end
+        expect(game_diagonal.diagonal_win?).to be true
+      end
+    end
 
-  #   end
+    context 'when there is an descending diagonal four in a row' do
+      it 'returns true' do
+        game_board = game_diagonal.instance_variable_get(:@game_board)
+
+        game_board[3][5] = "1"
+        game_board[2][4] = "1"
+        game_board[1][3] = "1"
+        game_board[0][2] = "1"
+
+        expect(game_diagonal.diagonal_win?).to be true
+      end
+    end
+
+    context 'when there is an ascending diagonal four in a row anywhere' do
+      it 'returns true' do
+        game_board = game_diagonal.instance_variable_get(:@game_board)
+
+        game_board[6][2] = "2"
+        game_board[5][3] = "2"
+        game_board[4][4] = "2"
+        game_board[3][5] = "2"
+
+        expect(game_diagonal.diagonal_win?).to be true
+      end
+    end
+
+    context 'when there is an descending diagonal four in a row anywhere' do
+      it 'returns true' do
+        game_board = game_diagonal.instance_variable_get(:@game_board)
+
+        game_board[6][3] = "2"
+        game_board[5][2] = "2"
+        game_board[4][1] = "2"
+        game_board[3][0] = "2"
+
+        expect(game_diagonal.diagonal_win?).to be true
+      end
+    end
+
+    context 'when there is no ascending diagonal four in a row' do
+      it 'returns false' do
+        game_board = game_diagonal.instance_variable_get(:@game_board)
+
+        game_board[0][3] = "1"
+        game_board[1][2] = "2"
+        game_board[2][1] = "1"
+        game_board[3][0] = "1"
+
+        expect(game_diagonal.diagonal_win?).to be false
+      end
+    end
+
+    context 'when there is no descending diagonal four in a row' do
+      it 'returns false' do
+        game_board = game_diagonal.instance_variable_get(:@game_board)
+
+        game_board[6][3] = "2"
+        game_board[5][2] = "2"
+        game_board[4][1] = "2"
+        game_board[3][0] = "1"
+
+        expect(game_diagonal.diagonal_win?).to be false
+      end
+    end
+  end
+
+  describe '#game_over?' do
+    subject(:game_over) { described_class.new }
+
+    context 'when board has vertical four in a row' do
+      before do
+        allow(game_over).to receive(:vertical_win?).and_return(true)
+      end
+
+      it 'returns true' do
+        expect(game_over.game_over?).to be true
+      end
+    end
+
+    context 'when board has horizontal four in a row' do
+      before do
+        allow(game_over).to receive(:horizontal_win?).and_return(true)
+      end
+
+      it 'returns true' do
+        expect(game_over.game_over?).to be true
+      end
+    end
     
+    context 'when board has diagonal four in a row' do
+      before do
+        allow(game_over).to receive(:diagonal_win?).and_return(true)
+      end
 
-  # end
+      it 'returns true' do
+        expect(game_over.game_over?).to be true
+      end
+    end
+  end
+
+  
+
 
 
 
