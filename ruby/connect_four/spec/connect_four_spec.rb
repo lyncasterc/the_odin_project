@@ -86,7 +86,6 @@ describe ConnectFour do
   
   end
 
-
   describe '#vertical_win?' do
     subject(:game_vertical) { described_class.new }
 
@@ -349,10 +348,4 @@ describe ConnectFour do
       end
     end
   end
-
-  
-
-
-
-
 end

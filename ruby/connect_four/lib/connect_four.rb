@@ -41,7 +41,6 @@ class ConnectFour
     end
   end
 
-
   def make_move(player, col)
     index = col - 1
 
