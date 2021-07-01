@@ -3,6 +3,7 @@ class ConnectFour
 
   def initialize
     @game_board = Array.new(7){Array.new(6,'O')}
+    
   end
 
   def play_game
