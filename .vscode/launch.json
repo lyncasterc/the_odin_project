@@ -14,7 +14,7 @@
             "type": "Ruby",
             "request": "launch",
             "cwd": "${workspaceRoot}",
-            "program": "ruby/chess/lib/king.rb"
+            "program": "ruby/chess/lib/chessgame.rb"
         },
     ]
 }
