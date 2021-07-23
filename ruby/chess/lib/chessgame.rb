@@ -54,10 +54,15 @@ class ChessGame
         @chess_board.find_node(player_piece.pos).piece = nil
         player_piece.has_moved = true if [Rook, Pawn, King].include?(player_piece.class)
   
+
         if player_piece.class == Pawn
           player_piece.set_take_en_passant(new_pos, @chess_board)
-          player_piece.t_e_p = false if player_piece.t_e_p && player_piece.take_en_passant(new_pos, @chess_board).nil?
+          player_piece.take_en_passant(new_pos, @chess_board) if player_piece.t_e_p
+          player_piece.t_e_p = false
         end
+
+        tep_pawn = find_pawn_tep
+        tep_pawn.t_e_p = false if !tep_pawn.nil?
   
         player_piece.pos = new_pos
   
@@ -103,6 +108,13 @@ class ChessGame
   end
 
   private
+
+  def find_pawn_tep
+    @chess_board.board.find do |node|
+      node.piece.class == Pawn && node.piece.color == @game_state[:current_turn] && node.piece.t_e_p
+    end
+  end
+
   def verify_input(min, max, input)
     return input if input.between?(min, max)
   end
@@ -244,6 +256,7 @@ class ChessGame
 end
 
 c = ChessGame.new
+
 
 c.play_game
 

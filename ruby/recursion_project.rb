@@ -37,14 +37,14 @@ def merge(left,right)
   merged_arr = []
 
   until left.empty? || right.empty?
-    if left[0] <= right[0]
+    if left.first <= right.first
       merged_arr.push(left.shift)
     else
       merged_arr.push(right.shift)
     end
   end
 
-  return merged_arr + left + right
+  merged_arr + left + right
 end
 
 def merge_sort(arr)
